@@ -8,7 +8,7 @@ app.get("/todo",function(req,res)=>{
 app.post("/todos",function(req,res)=>{
 
 })
-app.put("/complete",function(req,res)=>{
+app.put("/completed",function(req,res)=>{
 
 })
 
