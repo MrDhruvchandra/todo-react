@@ -1,12 +1,16 @@
 const express =require("express");
 const app =express();
 const {todo}=require("./db.js")
-const { creatPayload, updateTodo}=require("./types.js")
-port= 3000;
+
+const mongoose=require("mongoose");
+const { createTodo, updateTodo}=require("./types.js")
+const port= 3000;
+const cors =require("cors");
 app.use(express.json());
-app.get("/todo",async function(req,res){
+app.use(cors());
+app.get("/todos",async function(req,res){
     const todos= await todo.find({});
-    res.json({
+    res.json({  
         todos
     })
 
@@ -14,7 +18,7 @@ app.get("/todo",async function(req,res){
     // it's hitting the data base so it should be promise
 
 })
-app.post("/todos",async function(req,res){
+app.post("/todo",async function(req,res){
 const creatPayload=req.body;
 const parsePayload=createTodo.safeParse(creatPayload);
 if(!parsePayload.success){
@@ -35,8 +39,8 @@ res.json({
 
 
 app.put("/completed",async function(req,res){
-const createPayload=req.body;
-const parsePayload=updateTodo.safeParse(updateTodo);
+const updatePayload=req.body;
+const parsePayload=updateTodo.safeParse(updatePayload);
 if(!parsePayload.success){
 res.status(411).json({
     msg:"you entered wrong credentials"
